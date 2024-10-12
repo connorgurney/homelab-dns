@@ -1,0 +1,32 @@
+name: Deploy
+env:
+  AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  TF_WORKSPACE: prod
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+      - name: Install Terraform
+        id: tf-install
+        uses: hashicorp/setup-terraform@v2
+      - name: Set up Terraform
+        id: tf-init
+        working-directory: infra
+        run: |
+          terraform init -var-file=../config/infra/prod.tfvars
+      - name: Apply Terraform changes
+        id: tf-apply
+        working-directory: infra
+        run: |
+          terraform apply -var-file=../config/infra/prod.tfvars -auto-approve
