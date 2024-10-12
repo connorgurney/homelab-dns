@@ -15,18 +15,12 @@ jobs:
       contents: read
     steps:
       - name: Checkout repository
-        id: checkout
         uses: actions/checkout@v4
       - name: Install Terraform
-        id: tf-install
         uses: hashicorp/setup-terraform@v2
       - name: Set up Terraform
-        id: tf-init
         working-directory: infra
-        run: |
-          terraform init -var-file=../config/infra/prod.tfvars
+        run: terraform init -var-file=../config/infra/prod.tfvars
       - name: Apply Terraform changes
-        id: tf-apply
         working-directory: infra
-        run: |
-          terraform apply -var-file=../config/infra/prod.tfvars -auto-approve
+        run: terraform apply -var-file=../config/infra/prod.tfvars -auto-approve
