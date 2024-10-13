@@ -92,3 +92,17 @@ resource "aws_route53_record" "mdm_enrollment" {
     "enterpriseenrollment-s.manage.microsoft.com"
   ]
 }
+
+# Namespace registration for PRM
+resource "aws_route53_record" "prm" {
+  zone_id = aws_route53_zone.this.zone_id
+  name    = "prm"
+  type    = "NS"
+  ttl     = "3600"
+  records = [
+    "ns-1164.awsdns-17.org",
+    "ns-883.awsdns-46.net",
+    "ns-1734.awsdns-24.co.uk",
+    "ns-242.awsdns-30.com"
+  ] 
+}
