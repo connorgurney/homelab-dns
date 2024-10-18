@@ -93,6 +93,20 @@ resource "aws_route53_record" "mdm_enrollment" {
   ]
 }
 
+# Namespace registration for Calamity
+resource "aws_route53_record" "calamity" {
+  zone_id = aws_route53_zone.this.zone_id
+  name    = "calamity"
+  type    = "NS"
+  ttl     = "3600"
+  records = [
+    "ns-711.awsdns-24.net",
+    "ns-1133.awsdns-13.org",
+    "ns-1925.awsdns-48.co.uk",
+    "ns-126.awsdns-15.com"
+  ] 
+}
+
 # Namespace registration for PRM
 resource "aws_route53_record" "prm" {
   zone_id = aws_route53_zone.this.zone_id
