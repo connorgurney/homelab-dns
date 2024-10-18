@@ -18,8 +18,8 @@ provider "aws" {
 
   default_tags {
     tags = {
-      "connorgurney:workload"    = "homelab-dns"
-      "connorgurney:environment" = var.environment
+      "connorgurney-workload"    = "homelab-dns"
+      "connorgurney-environment" = var.environment
     }
   }
 }
